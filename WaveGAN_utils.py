@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 
-# from https://github.com/aladdinpersson/Machine-Learning-Collection/blob/master/ML/Pytorch/GANs/4.%20WGAN-GP/utils.py
+# gradient penalty from https://github.com/aladdinpersson/Machine-Learning-Collection/blob/master/ML/Pytorch/GANs/4.%20WGAN-GP/utils.py
 
 def gradient_penalty(critic, real, fake, device="cuda"):
     BATCH_SIZE, C, L = real.shape
