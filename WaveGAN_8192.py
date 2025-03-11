@@ -11,7 +11,7 @@ import pandas as pd
 from models.utils.WaveGAN_utils import gradient_penalty, init_weights, get_modules
 import torch.nn.functional as F
 
-
+# base DCGAN skeleton from https://github.com/aladdinpersson/Machine-Learning-Collection/blob/master/ML/Pytorch/GANs/2.%20DCGAN/model.py
 
 class GanConfig(ModelConfigBase):
     def __init__(self):
