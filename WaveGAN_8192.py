@@ -129,9 +129,9 @@ class Generator(nn.Module):
             Reshape([batch_size,  model_size * 8, -1]), 
             nn.ReLU(),
 
-            self._block( model_size*8,  model_size*4, 25, 4, 11),  
-            self._block( model_size * 4, model_size * 2, 25, 4, 11),  
-            self._block(model_size * 2, model_size, 25, 4, 11),  
+            self._block(model_size*8, model_size*4, 25, 4, 11),  
+            self._block(model_size*4, model_size*2, 25, 4, 11),  
+            self._block(model_size*2, model_size, 25, 4, 11),  
             nn.ConvTranspose1d(
                 model_size, data_dim, 25, 4, 11,
                 bias=False, output_padding=1
@@ -162,16 +162,16 @@ class Critic(nn.Module):
         super(Critic, self).__init__()
         self.disc = nn.Sequential(
             
-            self._block(data_dim, model_size , 25, 4, 11),
+            self._block(data_dim, model_size, 25, 4, 11),
             PhaseShuffle(shift_factor), 
             
-            self._block( model_size, model_size*2, 25, 4, 11),  
+            self._block(model_size, model_size*2, 25, 4, 11),  
             PhaseShuffle(shift_factor),  
          
-            self._block( model_size * 2, model_size * 4, 25, 4, 11), 
+            self._block(model_size*2, model_size*4, 25, 4, 11), 
             PhaseShuffle(shift_factor),        
 
-            self._block(model_size * 4, model_size *8, 25, 4, 11), 
+            self._block(model_size*4, model_size*8, 25, 4, 11), 
           
             Reshape([batch_size, 256*model_size]),
             nn.Linear(256*model_size, 1),
