@@ -135,20 +135,20 @@ class Generator(nn.Module):
         self.net = nn.Sequential(
  
  
-            self._block( model_size*8,  model_size*4, 25, 2, 11),  
-            self._block( model_size * 4, model_size * 2, 25, 2, 11), 
-            self._block(model_size * 2, model_size, 25, 2, 11),  
+            self._block(model_size*8, model_size*4, 25, 2, 11),  
+            self._block(model_size*4, model_size*2, 25, 2, 11), 
+            self._block(model_size*2, model_size, 25, 2, 11),  
              nn.ConvTranspose1d(
                 model_size, data_dim, 25, 2, 19,
                 bias=False, output_padding=1
             ), 
             nn.Tanh(),
 
-            nn.LSTM(data_dim, 256  ,1, batch_first=True), 
+            nn.LSTM(data_dim, 256, 1, batch_first=True), 
             GetLSTMOutput(),
             nn.LSTM(256, 128, 1, batch_first=True, bidirectional=True), 
             GetLSTMOutput(),
-            nn.LSTM(256, data_dim  ,1, batch_first=True), 
+            nn.LSTM(256, data_dim, 1, batch_first=True), 
             GetLSTMOutput(),
             Swap(0, 2, 1),
             )
@@ -183,13 +183,13 @@ class Critic(nn.Module):
             nn.ConstantPad1d((0, 1), 0),
             PhaseShuffle(shift_factor),            
             
-            self._block( model_size, model_size*2, 25, 2, 11),  
+            self._block(model_size, model_size*2, 25, 2, 11),  
             PhaseShuffle(shift_factor),  
             
-            self._block( model_size * 2, model_size * 4, 25, 2, 11), 
+            self._block(model_size*2, model_size*4, 25, 2, 11), 
             PhaseShuffle(shift_factor),  
             
-            self._block(model_size * 4, model_size *8, 25, 2, 11), 
+            self._block(model_size*4, model_size*8, 25, 2, 11), 
        
             Reshape([batch_size, -1]),
             nn.Linear(256*model_size, 1),
