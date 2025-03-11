@@ -1,6 +1,8 @@
 import torch
 import torch.nn as nn
 
+# gradient penalty and learn rate / weight initialisations can be found here  
+
 # gradient penalty from https://github.com/aladdinpersson/Machine-Learning-Collection/blob/master/ML/Pytorch/GANs/4.%20WGAN-GP/utils.py
 
 def gradient_penalty(critic, real, fake, device="cuda"):
